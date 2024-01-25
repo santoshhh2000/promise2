@@ -1,0 +1,45 @@
+function createPost(post) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            console.log(`Post created: ${post}`);
+            resolve(`Post created: ${post}`);
+        }, 1000);
+    });
+}
+
+function updateLastUserActivityTime() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const lastActivityTime = new Date().toLocaleTimeString();
+            console.log(`Last user activity time updated: ${lastActivityTime}`);
+            resolve(lastActivityTime);
+        }, 1000);
+    });
+}
+
+function deletePost(post) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            console.log(`Post deleted: ${post}`);
+            resolve(`Post deleted: ${post}`);
+        }, 1000);
+    });
+}
+
+const userPost = "This is my first post";
+
+createPost(userPost)
+    .then((createdPost) => {
+        return updateLastUserActivityTime().then((lastActivityTime) => {
+            console.log(createdPost);
+            console.log(`Last Activity Time: ${lastActivityTime}`);
+            return deletePost(createdPost);
+        });
+    })
+    .then((deletedPost) => {
+        console.log(deletedPost);
+        console.log("Remaining Posts: (none)");
+    })
+    .catch((error) => {
+        console.error(error);
+    });
